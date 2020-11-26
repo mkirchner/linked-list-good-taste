@@ -26,8 +26,8 @@ static char *test_list()
         insert_before(&l, l.head, &items[i]);
     }
     mu_assert(size(&l) == n, "Final list size should be N");
-    size_t k = n-1;
-    IntListItem* cur = l.head;
+    size_t k = n - 1;
+    IntListItem *cur = l.head;
     while (cur) {
         mu_assert(cur->value == k, "Unexpected list item value");
         k--;

@@ -39,7 +39,7 @@ static inline IntListItem **find_indirect(IntList *l, IntListItem *target)
 void remove_elegant(IntList *l, IntListItem *target)
 {
     // undef results if target is not in l
-    IntListItem ** p = find_indirect(l, target);
+    IntListItem **p = find_indirect(l, target);
     *p = target->next;
 }
 
@@ -66,10 +66,10 @@ void insert_before(IntList *l, IntListItem *before, IntListItem *item)
     item->next = before;
 }
 
-size_t size(IntList* l)
+size_t size(IntList *l)
 {
     size_t k = 0;
-    IntListItem* cur = l->head;
+    IntListItem *cur = l->head;
     while(cur) {
         cur = cur->next;
         k++;

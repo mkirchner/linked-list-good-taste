@@ -191,9 +191,10 @@ list, no matter if it points to `head` or one of the `next` pointers.
 
 ### Maintaining a handle
 
-The next question is if the indirect pointer solution can maintain a handle to
-the previous item that allows editing where the previous item's `next` pointer
-points.
+In order eliminate list traversal with two pointers, the more elegant
+implementation needs to support editing the `next` pointer of the predecessor
+of the current item throughout the entire traversal. As expected, this is
+supported by the indirect addressing approach:
 
 With `p` holding the address of a pointer to a list item, the comparison in the
 search loop becomes
@@ -211,7 +212,8 @@ address of the `next` field or the `head` pointer) that can be used to directly
 modify the pointer that points *to* the item.
 
 This is the reason why we can modify the incoming pointer to an item to point
-to a different location using `*p = target->next`.
+to a different location using `*p = target->next` and why we do not need `prev`
+and `cur` pointers to traverse the list for item removal.
 
 ## Conclusion
 

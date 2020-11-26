@@ -1,4 +1,4 @@
-# Good taste
+# On linked lists and good taste
 
 * [Introduction](#introduction)
 * [The code](#the-code)

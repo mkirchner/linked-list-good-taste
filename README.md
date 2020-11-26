@@ -45,7 +45,7 @@ Figure 1.
 
 Numbers are arbitrarily chosen integer values and arrows indicate pointers.
 `head` is a pointer of type `IntListItem*` and each of the boxes
-is an instance of an `IntListItem` struct, each with a member variale (called
+is an instance of an `IntListItem` struct, each with a member variable (called
 `next` in the code) of type `IntListItem*` that points to the next item.
 
 The C implementation is
@@ -139,7 +139,7 @@ benefits:
 
 1. It allows us to interpret the linked list in a way that makes the `head`
    pointer an integral part the data structure. This eliminates the need 
-   for a special case to remone the first item.
+   for a special case to remove the first item.
 2. It also allows us to evaluate the condition of the `while` loop without
    having to let go of the pointer that points to `target`. This allows us to
    modify the pointer that points to `target` and to get away with a single

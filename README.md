@@ -180,7 +180,7 @@ a sequence of pointers to `IntListItem`s (cf. Figure 3).
 
 ### Maintaining a handle
 
-An additional benefit of that paricular interpretation is that it supports
+An additional benefit of that particular interpretation is that it supports
 editing the `next` pointer of the predecessor of the current item throughout the
 entire traversal.
 
@@ -211,7 +211,7 @@ particularly concise implementation of another function in the list API:
 
 ### Inserting before existing items
 
-First, let's add the followinf declaration to the list API in `list.h`:
+First, let's add the following declaration to the list API in `list.h`:
 
 ```c
 void insert_before(IntList *l, IntListItem *before, IntListItem *item);
@@ -262,10 +262,11 @@ void insert_before(IntList *l, IntListItem *before, IntListItem *item)
 }
 ```
 
-Note that the implementation has consistent semantics for the edge cases: if
-`before` points to the list head, the new item will be inserted at the
-beginning of the list, if `before` is `NULL` or invalid (i.e. the item does not
-exist in `l`), the new item will be appended at the end.
+A particularly beautiful outcome is that the implementation has consistent
+semantics for the edge cases: if `before` points to the list head, the new item
+will be inserted at the beginning of the list, if `before` is `NULL` or invalid
+(i.e. the item does not exist in `l`), the new item will be appended at the
+end.
 
 
 ## Conclusion
@@ -275,10 +276,11 @@ change: using an indirect `IntListItem**` pointer to iterate over the pointers
 to the list items.  Everything else flows from there: there is no need for a
 special case or branching and a single iterator is sufficient to find and
 remove the target item.
-
 It also turns out that the same approach provides an elegant solution for item
 insertion in general and for insertion *before* an existing item in particular.
 
-
+So, going back to Linus' initial comment: is it good taste? Hard to say, but
+it's certainly a different, creative and very elegant solution to a well-known
+CS task.
 
 [ted]: https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux

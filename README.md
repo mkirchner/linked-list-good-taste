@@ -1,4 +1,4 @@
-# On linked lists and good taste
+# Linked lists, pointer tricks and good taste
 
 * [Introduction](#introduction)
 * [The code](#the-code)

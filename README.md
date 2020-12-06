@@ -160,9 +160,7 @@ Let's look each of these points in turn.
 
 The standard model interprets the linked list as a sequence of `IntListItem`
 instances. The beginning of the sequence can be accessed through a `head`
-pointer.
-
-This leads to the chunking illustrated in Figure 2. The `head` pointer is
+pointer. This leads to the conceptual model illustrated in Figure 2 above. The `head` pointer is
 merely considered as a handle to access the start of the list. `prev` and `cur`
 are pointers of type `IntListItem*` and always point to an item or `NULL`.
 
@@ -172,7 +170,7 @@ view on the data structure:
 <p align="center">
 <img alt="Data model for indirect addressing" src="img/data-model-indirect.png" width="600">
 <br />
-<b>Figure 2</b>: The conceptual model for the list data structure in the more
+<b>Figure 3</b>: The conceptual model for the list data structure in the more
 elegant approach.
 </p>
 

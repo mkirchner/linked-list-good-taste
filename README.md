@@ -2,11 +2,15 @@
 
 * [Introduction](#introduction)
 * [The code](#the-code)
-  * [The CS101 version](#the-cs101-version)
-  * [A more elegant solution](#a-more-elegant-solution)
+   * [The CS101 version](#the-cs101-version)
+   * [A more elegant solution](#a-more-elegant-solution)
 * [How does it work?](#how-does-it-work)
-  * [Integrating the head pointer](#integrating-the-head-pointer)
-  * [Maintaining a handle](#maintaining-a-handle)
+   * [Integrating the head pointer](#integrating-the-head-pointer)
+   * [Maintaining a handle](#maintaining-a-handle)
+* [Going beyond](#going-beyond)
+   * [Inserting before existing items](#inserting-before-existing-items)
+   * [Quick refactor](#quick-refactor)
+   * [Implementing insert_before()](#implementing-insert_before)
 * [Conclusion](#conclusion)
 
 
@@ -30,7 +34,10 @@ follow. However, as Linus mentions in the comment, the snippets lack a
 conceptual explanation and it is not immediately evident how the more elegant
 solution actually works.
 
-The following sections provide an explanation.
+The next two sections look at the technical approach in detail and demonstrate
+how and why the indirect addressing approach is so neat. The last section
+extends the solution from item deletion to insertion.
+
 
 ## The code
 
@@ -48,7 +55,7 @@ Numbers are arbitrarily chosen integer values and arrows indicate pointers.
 is an instance of an `IntListItem` struct, each with a member variable (called
 `next` in the code) of type `IntListItem*` that points to the next item.
 
-The C implementation is
+The C implementation of the data structure is:
 
 ```c
 struct IntListItem {
@@ -63,12 +70,12 @@ struct IntList {
 typedef struct IntList IntList;
 
 ```
-and we also include a (very minimal) API
+We also include a (minimal) API:
 
 ```c
-// The CS101 version
+/* The textbook version */
 void remove_cs101(IntList* l, IntListItem* target);
-// A more elegant solution
+/* A more elegant solution */
 void remove_elegant(IntList* l, IntListItem* target);
 ```
 
@@ -78,7 +85,11 @@ to the pseudocode from Linus' example and also compiles and runs.
 
 ### The CS101 version
 
-This is item removal from a linked list, as taught in many CS101 courses.
+<p align="center">
+<img alt="simple data model" src="img/data-model-cs101.png" width="600">
+<br />
+<b>Figure 2</b>: The conceptual model for the list data structure in the CS101 algorithm.
+</p>
 
 ```c
 void remove_cs101(IntList *l, IntListItem *target)
@@ -108,6 +119,9 @@ the list, in which case, removal means moving the list head forward.
 
 ### A more elegant solution
 
+The more elegant version has less code and does not require a separate branch
+to deal with deletion of the first element in a list.
+
 ```c
 void remove_elegant(IntList *l, IntListItem *target)
 {
@@ -119,17 +133,12 @@ void remove_elegant(IntList *l, IntListItem *target)
 }
 ```
 
-The more elegant version has less code and does not require a separate branch
-to deal with deletion of the first element in a list.
-
 The code uses an indirect pointer `p` that holds the address of a pointer to a
 list item, starting with the address of `head`.  In every iteration, that
 pointer is advanced to hold the address of the pointer to the next list item,
 i.e. the address of the `next` element in the current `IntListItem`.
-
 When the pointer to the list item `(*p)` equals `target`, we exit the search
-loop and remove the item from the list. This, as will become clear below, only
-requires overwriting a single pointer.
+loop and remove the item from the list.
 
 
 ## How does it work?
@@ -153,23 +162,18 @@ The standard model interprets the linked list as a sequence of `IntListItem`
 instances. The beginning of the sequence can be accessed through a `head`
 pointer.
 
-<p align="center">
-<img alt="simple data model" src="img/data-model-cs101.png" width="600">
-<br />
-<b>Figure 2</b>: Conceptual list chunking for the CS101 algorithm.
-</p>
-
 This leads to the chunking illustrated in Figure 2. The `head` pointer is
 merely considered as a handle to access the start of the list. `prev` and `cur`
 are pointers of type `IntListItem*` and always point to an item or `NULL`.
 
-The elegant implementation uses indirect addressing that yields a different
-view on the data structure.
+The elegant implementation uses indirect addressing scheme that yields a different
+view on the data structure:
 
 <p align="center">
 <img alt="Data model for indirect addressing" src="img/data-model-indirect.png" width="600">
 <br />
-<b>Figure 3</b>: Indirect addressing yields uniform list chunking.
+<b>Figure 2</b>: The conceptual model for the list data structure in the more
+elegant approach.
 </p>
 
 Here, `p` is of type `IntListItem**` and holds the address of the pointer to
@@ -183,18 +187,14 @@ In code, this translates to `p = &(*p)->next`, meaning we
    the address of the next list item
 3. `&`: take the address of that address field (i.e. get a pointer to it)
 
-This corresponds to an interpretation of the data structure is illustrated in
-figure 3: the list is interpreted as a sequence of overlapping chunks where
-each chunk consists of a pointer to a list item and the list item itself. The
-pointer `p` always remains a pointer to such a chunk as it iterates through the
-list, no matter if it points to `head` or one of the `next` pointers.
+This corresponds to an interpretation of the data structure where the list is a
+a sequence of pointers to `IntListItem`s (cf. Figure 3).
 
 ### Maintaining a handle
 
-In order eliminate list traversal with two pointers, the more elegant
-implementation needs to support editing the `next` pointer of the predecessor
-of the current item throughout the entire traversal. As expected, this is
-supported by the indirect addressing approach:
+An additional benefit of that particular interpretation is that it supports
+editing the `next` pointer of the predecessor of the current item throughout the
+entire traversal.
 
 With `p` holding the address of a pointer to a list item, the comparison in the
 search loop becomes
@@ -215,15 +215,84 @@ This is the reason why we can modify the incoming pointer to an item to point
 to a different location using `*p = target->next` and why we do not need `prev`
 and `cur` pointers to traverse the list for item removal.
 
+## Going beyond
+
+It turns out that the idea behind `remove_elegant()` can be applied to yield a
+particularly concise implementation of another function in the list API:
+`insert_before()`, i.e. inserting a given item before another one.
+
+### Inserting before existing items
+
+First, let's add the following declaration to the list API in `list.h`:
+
+```c
+void insert_before(IntList *l, IntListItem *before, IntListItem *item);
+```
+
+The function will take a pointer to a list `l`, a pointer `before` to an 
+item in that list and a pointer to a new list item `item` that the function
+will insert before `before`.
+
+### Quick refactor
+
+Before we move on, we refactor the search loop into a separate
+function
+
+```c
+
+static inline IntListItem **find_indirect(IntList *l, IntListItem *target)
+{
+    IntListItem **p = &l->head;
+    while ((*p) && (*p) != target) {
+        p = &(*p)->next;
+    }
+    return p;
+}
+
+```
+
+and use that function in `remove_elegant()` like so
+
+```c
+void remove_elegant(IntList *l, IntListItem *target)
+{
+    IntListItem **p = find_indirect(l, target);
+    *p = target->next;
+}
+```
+
+### Implementing `insert_before()`
+
+Using `find_indirect()`, it is straightforward to implement `insert_before()`:
+
+```c
+void insert_before(IntList *l, IntListItem *before, IntListItem *item)
+{
+    IntListItem **p = find_indirect(l, before);
+    *p = item;
+    item->next = before;
+}
+```
+
+A particularly beautiful outcome is that the implementation has consistent
+semantics for the edge cases: if `before` points to the list head, the new item
+will be inserted at the beginning of the list, if `before` is `NULL` or invalid
+(i.e. the item does not exist in `l`), the new item will be appended at the
+end.
+
+
 ## Conclusion
 
-In summary, Linus proposes a single, simple change: use an indirect
-`IntListItem**` pointer to iterate over the list elements. Everything else
-flows quite naturally from there: we get rid of the special case and the
-branching and, as a bonus, can even get away with using a single pointer to
-iterate the list.
+The premise of the more elegant solution for item deletion is a single, simple
+change: using an indirect `IntListItem**` pointer to iterate over the pointers
+to the list items.  Everything else flows from there: there is no need for a
+special case or branching and a single iterator is sufficient to find and
+remove the target item.
+It also turns out that the same approach provides an elegant solution for item
+insertion in general and for insertion *before* an existing item in particular.
 
-This is elegant. And, yes, *good taste*, too :-)
-
+So, going back to Linus' initial comment: is it good taste? Hard to say, but
+it's certainly a different, creative and very elegant solution to a well-known
+CS task.
 
 [ted]: https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux

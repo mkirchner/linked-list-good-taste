@@ -1,5 +1,17 @@
 # On linked lists and good taste
 
+* [Introduction](#introduction)
+* [The code](#the-code)
+   * [The CS101 version](#the-cs101-version)
+   * [A more elegant solution](#a-more-elegant-solution)
+* [How does it work?](#how-does-it-work)
+   * [Integrating the head pointer](#integrating-the-head-pointer)
+   * [Maintaining a handle](#maintaining-a-handle)
+* [Going beyond](#going-beyond)
+   * [Inserting before existing items](#inserting-before-existing-items)
+   * [Quick refactor](#quick-refactor)
+   * [Implementing insert_before()](#implementing-insert_before)
+* [Conclusion](#conclusion)
 
 
 ## Introduction

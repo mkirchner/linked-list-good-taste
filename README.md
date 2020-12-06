@@ -1,13 +1,5 @@
 # On linked lists and good taste
 
-* [Introduction](#introduction)
-* [The code](#the-code)
-  * [The CS101 version](#the-cs101-version)
-  * [A more elegant solution](#a-more-elegant-solution)
-* [How does it work?](#how-does-it-work)
-  * [Integrating the head pointer](#integrating-the-head-pointer)
-  * [Maintaining a handle](#maintaining-a-handle)
-* [Conclusion](#conclusion)
 
 
 ## Introduction
@@ -30,7 +22,10 @@ follow. However, as Linus mentions in the comment, the snippets lack a
 conceptual explanation and it is not immediately evident how the more elegant
 solution actually works.
 
-The following sections provide an explanation.
+The next two sections look at the technical approach in detail and demonstrate
+how and why the indirect addressing approach is so neat. The last section
+extends the solution from item deletion to insertion.
+
 
 ## The code
 
@@ -77,6 +72,12 @@ With that in place, let's have a look at the implementations of
 to the pseudocode from Linus' example and also compiles and runs.
 
 ### The CS101 version
+
+<p align="center">
+<img alt="simple data model" src="img/data-model-cs101.png" width="600">
+<br />
+<b>Figure 2</b>: The conceptual model for the list data structure in the CS101 algorithm.
+</p>
 
 ```c
 void remove_cs101(IntList *l, IntListItem *target)
@@ -149,12 +150,6 @@ The standard model interprets the linked list as a sequence of `IntListItem`
 instances. The beginning of the sequence can be accessed through a `head`
 pointer.
 
-<p align="center">
-<img alt="simple data model" src="img/data-model-cs101.png" width="600">
-<br />
-<b>Figure 2</b>: Conceptual list chunking for the CS101 algorithm.
-</p>
-
 This leads to the chunking illustrated in Figure 2. The `head` pointer is
 merely considered as a handle to access the start of the list. `prev` and `cur`
 are pointers of type `IntListItem*` and always point to an item or `NULL`.
@@ -165,7 +160,8 @@ view on the data structure:
 <p align="center">
 <img alt="Data model for indirect addressing" src="img/data-model-indirect.png" width="600">
 <br />
-<b>Figure 3</b>: Indirect addressing yields uniform list chunking.
+<b>Figure 2</b>: The conceptual model for the list data structure in the more
+elegant approach.
 </p>
 
 Here, `p` is of type `IntListItem**` and holds the address of the pointer to
@@ -266,23 +262,23 @@ void insert_before(IntList *l, IntListItem *before, IntListItem *item)
 }
 ```
 
-Note that the implementation has clean semantics for the
-edge cases:
-if `before` points to the list head, the new item will be inserted
-    at the beginning of the list, if `before` is `NULL` or invalid (i.e. the item
-                does not exist in `l`), the new item will be appended at the end.
+Note that the implementation has consistent semantics for the edge cases: if
+`before` points to the list head, the new item will be inserted at the
+beginning of the list, if `before` is `NULL` or invalid (i.e. the item does not
+exist in `l`), the new item will be appended at the end.
 
 
 ## Conclusion
 
-The premise of the more elegant solution is a single, simple change:
-using an indirect `IntListItem**` pointer to iterate over the list elements. Everything else
-flows quite naturally from there: we get rid of the special case and the
-branching and, as a bonus, can even get away with using a single pointer to
-iterate the list.
+The premise of the more elegant solution for item deletion is a single, simple
+change: using an indirect `IntListItem**` pointer to iterate over the pointers
+to the list items.  Everything else flows from there: there is no need for a
+special case or branching and a single iterator is sufficient to find and
+remove the target item.
 
-This is elegant and, importantly, can be extended to provide an efficient
-solution to inserting before an existing item in a singly linked list.
+It also turns out that the same approach provides an elegant solution for item
+insertion in general and for insertion *before* an existing item in particular.
+
 
 
 [ted]: https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux

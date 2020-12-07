@@ -147,7 +147,7 @@ The key insight is that using an indirect pointer `p` has two conceptual
 benefits:
 
 1. It allows us to interpret the linked list in a way that makes the `head`
-   pointer an integral part the data structure. This eliminates the need 
+   pointer an integral part of the data structure. This eliminates the need 
    for a special case to remove the first item.
 2. It also allows us to evaluate the condition of the `while` loop without
    having to let go of the pointer that points to `target`. This allows us to

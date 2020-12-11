@@ -3,13 +3,14 @@
 #include <stdlib.h>
 #include "list.c"
 
-const size_t n = 1000;
-static IntListItem items[n];
+#define N 1000
+
+static IntListItem items[N];
 static IntList l = { .head = NULL };
 
 static IntList *reset_list()
 {
-    for (size_t i = 0; i < n; ++i) {
+    for (size_t i = 0; i < N; ++i) {
         items[i].value = i;
         items[i].next = NULL;
     }
@@ -22,11 +23,11 @@ static char *test_list()
     // test inserting at the beginning
     reset_list();
     mu_assert(size(&l) == 0, "Initial list size is expected to be zero.");
-    for (size_t i = 0; i < n; ++i) {
+    for (size_t i = 0; i < N; ++i) {
         insert_before(&l, l.head, &items[i]);
     }
-    mu_assert(size(&l) == n, "Final list size should be N");
-    size_t k = n - 1;
+    mu_assert(size(&l) == N, "Final list size should be N");
+    size_t k = N - 1;
     IntListItem *cur = l.head;
     while (cur) {
         mu_assert(cur->value == k, "Unexpected list item value");
@@ -37,10 +38,10 @@ static char *test_list()
     // test inserting at the end
     reset_list();
     mu_assert(size(&l) == 0, "Initial list size is expected to be zero.");
-    for (size_t i = 0; i < n; ++i) {
+    for (size_t i = 0; i < N; ++i) {
         insert_before(&l, NULL, &items[i]);
     }
-    mu_assert(size(&l) == n, "Final list size should be N");
+    mu_assert(size(&l) == N, "Final list size should be N");
     k = 0;
     cur = l.head;
     while (cur) {
@@ -60,10 +61,10 @@ static char *test_list()
     // reset the list and insert elements in order (i.e. at the end)
     reset_list();
     mu_assert(size(&l) == 0, "Initial list size is expected to be zero.");
-    for (size_t i = 0; i < n; ++i) {
+    for (size_t i = 0; i < N; ++i) {
         insert_before(&l, NULL, &items[i]);
     }
-    mu_assert(size(&l) == n, "list size should be N");
+    mu_assert(size(&l) == N, "list size should be N");
 
     // test remove_elegant
     cur = l.head;

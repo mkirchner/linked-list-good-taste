@@ -2,16 +2,15 @@
 
 void remove_cs101(IntList *l, IntListItem *target)
 {
-    IntListItem *cur = l->head, *prev = NULL;
-    while (cur != target) {
-        prev = cur;
-        cur = cur->next;
-    }
-    if (prev) {
-        prev->next = cur->next;
-    } else {
-        l->head = cur->next;
-    }
+	IntListItem *cur = l->head, *prev = NULL;
+	while (cur != target) {
+		prev = cur;
+		cur = cur->next;
+	}
+	if (prev)
+		prev->next = cur->next;
+	else
+		l->head = cur->next;
 }
 
 /**
@@ -29,18 +28,17 @@ void remove_cs101(IntList *l, IntListItem *target)
  */
 static inline IntListItem **find_indirect(IntList *l, IntListItem *target)
 {
-    IntListItem **p = &l->head;
-    while ((*p) && (*p) != target) {
-        p = &(*p)->next;
-    }
-    return p;
+	IntListItem **p = &l->head;
+	while (*p && *p != target)
+		p = &(*p)->next;
+	return p;
 }
 
 void remove_elegant(IntList *l, IntListItem *target)
 {
-    // undef results if target is not in l
-    IntListItem **p = find_indirect(l, target);
-    *p = target->next;
+	// undef results if target is not in l
+	IntListItem **p = find_indirect(l, target);
+	*p = target->next;
 }
 
 /**
@@ -59,20 +57,20 @@ void remove_elegant(IntList *l, IntListItem *target)
  */
 void insert_before(IntList *l, IntListItem *before, IntListItem *item)
 {
-    /* Using indirect pointers really allows us to write
-     * tight code here */
-    IntListItem **p = find_indirect(l, before);
-    *p = item;
-    item->next = before;
+	/* Using indirect pointers really allows us to write
+	 * tight code here */
+	IntListItem **p = find_indirect(l, before);
+	*p = item;
+	item->next = before;
 }
 
 size_t size(IntList *l)
 {
-    size_t k = 0;
-    IntListItem *cur = l->head;
-    while(cur) {
-        cur = cur->next;
-        k++;
-    }
-    return k;
+	size_t k = 0;
+	IntListItem *cur = l->head;
+	while (cur) {
+		cur = cur->next;
+		k++;
+	}
+	return k;
 }

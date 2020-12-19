@@ -59,13 +59,13 @@ The C implementation of the data structure is:
 
 ```c
 struct IntListItem {
-    int value;
-    struct IntListItem* next;
+        int value;
+        struct IntListItem* next;
 };
 typedef struct IntListItem IntListItem;
 
 struct IntList {
-    IntListItem* head;
+        IntListItem* head;
 };
 typedef struct IntList IntList;
 
@@ -94,16 +94,15 @@ to the pseudocode from Linus' example and also compiles and runs.
 ```c
 void remove_cs101(IntList *l, IntListItem *target)
 {
-    IntListItem *cur = l->head, *prev = NULL;
-    while (cur != target) {
-        prev = cur;
-        cur = cur->next;
-    }
-    if (prev) {
-        prev->next = cur->next;
-    } else {
-        l->head = cur->next;
-    }
+        IntListItem *cur = l->head, *prev = NULL;
+        while (cur != target) {
+                prev = cur;
+                cur = cur->next;
+        }
+        if (prev)
+                prev->next = cur->next;
+        else
+                l->head = cur->next;
 }
 ```
 
@@ -125,11 +124,10 @@ to deal with deletion of the first element in a list.
 ```c
 void remove_elegant(IntList *l, IntListItem *target)
 {
-    IntListItem **p = &l->head;
-    while ((*p) != target) {
-        p = &(*p)->next;
-    }
-    *p = target->next;
+        IntListItem **p = &l->head;
+        while (*p != target)
+                p = &(*p)->next;
+        *p = target->next;
 }
 ```
 
@@ -137,7 +135,7 @@ The code uses an indirect pointer `p` that holds the address of a pointer to a
 list item, starting with the address of `head`.  In every iteration, that
 pointer is advanced to hold the address of the pointer to the next list item,
 i.e. the address of the `next` element in the current `IntListItem`.
-When the pointer to the list item `(*p)` equals `target`, we exit the search
+When the pointer to the list item `*p` equals `target`, we exit the search
 loop and remove the item from the list.
 
 
@@ -198,13 +196,11 @@ With `p` holding the address of a pointer to a list item, the comparison in the
 search loop becomes
 
 ```c
-while ((*p) != target) {
-    ...
-}
+while (*p != target)
 ```
 
-The search loop will exit if `(*p)` equals `target`, and once it does, we are
-still able to modify `(*p)` since we hold its address `p`. Thus, despite
+The search loop will exit if `*p` equals `target`, and once it does, we are
+still able to modify `*p` since we hold its address `p`. Thus, despite
 iterating the loop until we hit `target`, we still maintain a handle (the
 address of the `next` field or the `head` pointer) that can be used to directly
 modify the pointer that points *to* the item.
@@ -240,11 +236,10 @@ function
 
 static inline IntListItem **find_indirect(IntList *l, IntListItem *target)
 {
-    IntListItem **p = &l->head;
-    while ((*p) && (*p) != target) {
-        p = &(*p)->next;
-    }
-    return p;
+        IntListItem **p = &l->head;
+        while (*p && *p != target)
+                p = &(*p)->next;
+        return p;
 }
 
 ```
@@ -254,8 +249,8 @@ and use that function in `remove_elegant()` like so
 ```c
 void remove_elegant(IntList *l, IntListItem *target)
 {
-    IntListItem **p = find_indirect(l, target);
-    *p = target->next;
+        IntListItem **p = find_indirect(l, target);
+        *p = target->next;
 }
 ```
 
@@ -266,9 +261,9 @@ Using `find_indirect()`, it is straightforward to implement `insert_before()`:
 ```c
 void insert_before(IntList *l, IntListItem *before, IntListItem *item)
 {
-    IntListItem **p = find_indirect(l, before);
-    *p = item;
-    item->next = before;
+        IntListItem **p = find_indirect(l, before);
+        *p = item;
+        item->next = before;
 }
 ```
 

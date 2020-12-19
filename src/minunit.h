@@ -11,4 +11,4 @@
 
 extern int tests_run;
 
-#endif /* !MINUNIT_H */
+#endif /* MINUNIT_H */

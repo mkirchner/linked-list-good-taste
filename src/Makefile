@@ -1,12 +1,16 @@
-.PHONY: all
-all:
-	gcc -Wall -O2 -c -o list.o list.c
+CC := gcc
+CFLAGS := -Wall -O2
 
-.PHONY: test
-test:
-	gcc -Wall -O2 -o test_list test_list.c
+all: list.o
+
+test: test_list
 	./test_list
 
-.PHONY: clean
+list.o: list.c list.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+test_list: test_list.c list.c list.h
+	$(CC) $(CFLAGS) $^ -o $@
+
 clean:
-	rm -f test_list list.o
+	$(RM) test_list list.o

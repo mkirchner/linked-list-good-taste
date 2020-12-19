@@ -1,23 +1,23 @@
-#ifndef __INTLIST_H__
-#define __INTLIST_H__
+#ifndef LIST_H
+#define LIST_H
 
 #include <stddef.h>
 
-struct IntListItem {
-    int value;
-    struct IntListItem *next;
+struct list_item {
+	int value;
+	struct list_item *next;
 };
-typedef struct IntListItem IntListItem;
+typedef struct list_item list_item;
 
-struct IntList {
-    IntListItem *head;
+struct list {
+	struct list_item *head;
 };
-typedef struct IntList IntList;
+typedef struct list list;
 
-size_t size(IntList *l);
-void insert_before(IntList *l, IntListItem *before, IntListItem *item);
+size_t size(list *l);
+void insert_before(list *l, list_item *before, list_item *item);
 
-void remove_cs101(IntList *l, IntListItem *target);
-void remove_elegant(IntList *l, IntListItem *target);
+void remove_cs101(list *l, list_item *target);
+void remove_elegant(list *l, list_item *target);
 
-#endif /* !__INTLIST_H__ */
+#endif /* LIST_H */

@@ -13,7 +13,6 @@
    * [Implementing insert_before()](#implementing-insert_before)
 * [Conclusion](#conclusion)
 
-
 ## Introduction
 
 In a 2016 [TED interview][ted] (14:10) Linus Torvalds speaks about what he
@@ -37,7 +36,6 @@ solution actually works.
 The next two sections look at the technical approach in detail and demonstrate
 how and why the indirect addressing approach is so neat. The last section
 extends the solution from item deletion to insertion.
-
 
 ## The code
 
@@ -68,8 +66,8 @@ struct list {
         struct list_item *head;
 };
 typedef struct list list;
-
 ```
+
 We also include a (minimal) API:
 
 ```c
@@ -233,7 +231,6 @@ Before we move on, we refactor the search loop into a separate
 function
 
 ```c
-
 static inline list_item **find_indirect(list *l, list_item *target)
 {
         list_item **p = &l->head;
@@ -241,7 +238,6 @@ static inline list_item **find_indirect(list *l, list_item *target)
                 p = &(*p)->next;
         return p;
 }
-
 ```
 
 and use that function in `remove_elegant()` like so
@@ -272,7 +268,6 @@ semantics for the edge cases: if `before` points to the list head, the new item
 will be inserted at the beginning of the list, if `before` is `NULL` or invalid
 (i.e. the item does not exist in `l`), the new item will be appended at the
 end.
-
 
 ## Conclusion
 

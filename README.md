@@ -237,7 +237,7 @@ function
 static inline list_item **find_indirect(list *l, list_item *target)
 {
         list_item **p = &l->head;
-        while (*p && *p != target)
+        while (*p != target)
                 p = &(*p)->next;
         return p;
 }

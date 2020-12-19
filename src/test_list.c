@@ -6,7 +6,7 @@
 #define N 1000
 
 static list_item items[N];
-static list l = { .head = NULL };
+static list l;
 
 static list *reset_list(void)
 {

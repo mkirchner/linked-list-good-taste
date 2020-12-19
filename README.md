@@ -51,21 +51,21 @@ Figure 1.
 </p>
 
 Numbers are arbitrarily chosen integer values and arrows indicate pointers.
-`head` is a pointer of type `list_item*` and each of the boxes
+`head` is a pointer of type `list_item *` and each of the boxes
 is an instance of an `list_item` struct, each with a member variable (called
-`next` in the code) of type `list_item*` that points to the next item.
+`next` in the code) of type `list_item *` that points to the next item.
 
 The C implementation of the data structure is:
 
 ```c
 struct list_item {
         int value;
-        struct list_item* next;
+        struct list_item *next;
 };
 typedef struct list_item list_item;
 
 struct list {
-        struct list_item* head;
+        struct list_item *head;
 };
 typedef struct list list;
 
@@ -74,9 +74,9 @@ We also include a (minimal) API:
 
 ```c
 /* The textbook version */
-void remove_cs101(list* l, list_item* target);
+void remove_cs101(list *l, list_item *target);
 /* A more elegant solution */
-void remove_elegant(list* l, list_item* target);
+void remove_elegant(list *l, list_item *target);
 ```
 
 With that in place, let's have a look at the implementations of
@@ -160,7 +160,7 @@ The standard model interprets the linked list as a sequence of `list_item`
 instances. The beginning of the sequence can be accessed through a `head`
 pointer. This leads to the conceptual model illustrated in Figure 2 above. The `head` pointer is
 merely considered as a handle to access the start of the list. `prev` and `cur`
-are pointers of type `list_item*` and always point to an item or `NULL`.
+are pointers of type `list_item *` and always point to an item or `NULL`.
 
 The elegant implementation uses indirect addressing scheme that yields a different
 view on the data structure:
@@ -172,7 +172,7 @@ view on the data structure:
 elegant approach.
 </p>
 
-Here, `p` is of type `list_item**` and holds the address of the pointer to
+Here, `p` is of type `list_item **` and holds the address of the pointer to
 the current list item. When we advance the pointer, we forward to the address
 of the pointer to the next list item.
 
@@ -277,7 +277,7 @@ end.
 ## Conclusion
 
 The premise of the more elegant solution for item deletion is a single, simple
-change: using an indirect `list_item**` pointer to iterate over the pointers
+change: using an indirect `list_item **` pointer to iterate over the pointers
 to the list items.  Everything else flows from there: there is no need for a
 special case or branching and a single iterator is sufficient to find and
 remove the target item.

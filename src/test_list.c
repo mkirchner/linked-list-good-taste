@@ -71,7 +71,7 @@ static char *test_list(void)
 	}
 	mu_assert(size(&l) == 0, "List size after deletion is expected to be zero.");
 
-	return 0;
+	return NULL;
 }
 
 int tests_run = 0;
@@ -79,17 +79,17 @@ int tests_run = 0;
 static char *test_suite(void)
 {
 	mu_run_test(test_list);
-	return 0;
+	return NULL;
 }
 
 int main(void)
 {
 	printf("---=[ List tests\n");
 	char *result = test_suite();
-	if (result != 0)
+	if (result)
 		printf("ERROR: %s\n", result);
 	else
 		printf("ALL TESTS PASSED\n");
 	printf("Tests run: %d\n", tests_run);
-	return result != 0;
+	return !!result;
 }

@@ -5,10 +5,10 @@
 
 #define N 1000
 
-static IntListItem items[N];
-static IntList l = { .head = NULL };
+static list_item items[N];
+static list l = { .head = NULL };
 
-static IntList *reset_list(void)
+static list *reset_list(void)
 {
 	for (size_t i = 0; i < N; i++) {
 		items[i].value = i;
@@ -27,7 +27,7 @@ static char *test_list(void)
 		insert_before(&l, l.head, &items[i]);
 	mu_assert(size(&l) == N, "Final list size should be N");
 	size_t k = N - 1;
-	IntListItem *cur = l.head;
+	list_item *cur = l.head;
 	while (cur) {
 		mu_assert(cur->value == k, "Unexpected list item value");
 		k--;

@@ -1,8 +1,8 @@
 #include "list.h"
 
-void remove_cs101(IntList *l, IntListItem *target)
+void remove_cs101(list *l, list_item *target)
 {
-	IntListItem *cur = l->head, *prev = NULL;
+	list_item *cur = l->head, *prev = NULL;
 	while (cur != target) {
 		prev = cur;
 		cur = cur->next;
@@ -26,18 +26,18 @@ void remove_cs101(IntList *l, IntListItem *target)
  *         `target`, or `head`. Pointer to the last `next` field in the list
  *         if `target` is not in `l`.
  */
-static inline IntListItem **find_indirect(IntList *l, IntListItem *target)
+static inline list_item **find_indirect(list *l, list_item *target)
 {
-	IntListItem **p = &l->head;
+	list_item **p = &l->head;
 	while (*p && *p != target)
 		p = &(*p)->next;
 	return p;
 }
 
-void remove_elegant(IntList *l, IntListItem *target)
+void remove_elegant(list *l, list_item *target)
 {
 	// undef results if target is not in l
-	IntListItem **p = find_indirect(l, target);
+	list_item **p = find_indirect(l, target);
 	*p = target->next;
 }
 
@@ -55,19 +55,19 @@ void remove_elegant(IntList *l, IntListItem *target)
  *               the item will be appended at the the end of the list
  * @param item The item to insert
  */
-void insert_before(IntList *l, IntListItem *before, IntListItem *item)
+void insert_before(list *l, list_item *before, list_item *item)
 {
 	/* Using indirect pointers really allows us to write
 	 * tight code here */
-	IntListItem **p = find_indirect(l, before);
+	list_item **p = find_indirect(l, before);
 	*p = item;
 	item->next = before;
 }
 
-size_t size(IntList *l)
+size_t size(list *l)
 {
 	size_t k = 0;
-	IntListItem *cur = l->head;
+	list_item *cur = l->head;
 	while (cur) {
 		cur = cur->next;
 		k++;

@@ -267,8 +267,8 @@ Using `find_indirect()`, it is straightforward to implement `insert_before()`:
 void insert_before(IntList *l, IntListItem *before, IntListItem *item)
 {
     IntListItem **p = find_indirect(l, before);
+    item->next = *p;
     *p = item;
-    item->next = before;
 }
 ```
 

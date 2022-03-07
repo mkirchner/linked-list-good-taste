@@ -62,8 +62,8 @@ void insert_before(IntList *l, IntListItem *before, IntListItem *item)
     /* Using indirect pointers really allows us to write
      * tight code here */
     IntListItem **p = find_indirect(l, before);
+    item->next = *p;
     *p = item;
-    item->next = before;
 }
 
 size_t size(IntList *l)

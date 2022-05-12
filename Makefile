@@ -1,3 +1,0 @@
-all:
-	make -C src/
-

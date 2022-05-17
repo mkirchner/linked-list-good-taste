@@ -4,13 +4,13 @@
 #include <stddef.h>
 
 struct list_item {
-	int value;
-	struct list_item *next;
+        int value;
+        struct list_item *next;
 };
 typedef struct list_item list_item;
 
 struct list {
-	struct list_item *head;
+        struct list_item *head;
 };
 typedef struct list list;
 

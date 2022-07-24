@@ -48,7 +48,7 @@ Figure 1.
 <b>Figure 1</b>: Singly linked list of integers.
 </p>
 
-Numbers are arbitrarily chosen integer values and arrows indicate pointers.
+Numbers are arbitrarily chosen, integer values and arrows indicate pointers.
 `head` is a pointer of type `list_item *` and each of the boxes
 is an instance of an `list_item` struct, each with a member variable (called
 `next` in the code) of type `list_item *` that points to the next item.
@@ -68,7 +68,7 @@ struct list {
 typedef struct list list;
 ```
 
-We also include a (minimal) API:
+We also include a minimal API:
 
 ```c
 /* The textbook version */
@@ -136,14 +136,13 @@ i.e. the address of the `next` element in the current `list_item`.
 When the pointer to the list item `*p` equals `target`, we exit the search
 loop and remove the item from the list.
 
-
 ## How does it work?
 
 The key insight is that using an indirect pointer `p` has two conceptual
 benefits:
 
 1. It allows us to interpret the linked list in a way that makes the `head`
-   pointer an integral part the data structure. This eliminates the need 
+   pointer an integral part the data structure. This eliminates the need
    for a special case to remove the first item.
 2. It also allows us to evaluate the condition of the `while` loop without
    having to let go of the pointer that points to `target`. This allows us to
@@ -221,14 +220,14 @@ First, let's add the following declaration to the list API in `list.h`:
 void insert_before(list *l, list_item *before, list_item *item);
 ```
 
-The function will take a pointer to a list `l`, a pointer `before` to an 
+The function will take a pointer to a list `l`, a pointer `before` to an
 item in that list and a pointer to a new list item `item` that the function
 will insert before `before`.
 
 ### Quick refactor
 
 Before we move on, we refactor the search loop into a separate
-function
+function:
 
 ```c
 static inline list_item **find_indirect(list *l, list_item *target)
@@ -240,7 +239,7 @@ static inline list_item **find_indirect(list *l, list_item *target)
 }
 ```
 
-and use that function in `remove_elegant()` like so
+and use that function in `remove_elegant()` like so:
 
 ```c
 void remove_elegant(list *l, list_item *target)
@@ -276,6 +275,7 @@ change: using an indirect `list_item **` pointer to iterate over the pointers
 to the list items.  Everything else flows from there: there is no need for a
 special case or branching and a single iterator is sufficient to find and
 remove the target item.
+
 It also turns out that the same approach provides an elegant solution for item
 insertion in general and for insertion *before* an existing item in particular.
 

@@ -9,7 +9,7 @@ test: test_list
 list.o: list.c list.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-test_list: test_list.c 
+test_list: test_list.c list.c list.h
 	$(CC) $(CFLAGS) $^ -o $@
 
 clean:

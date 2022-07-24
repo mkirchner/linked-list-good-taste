@@ -1,7 +1,7 @@
 #include "minunit.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.c"
+#include "list.h"
 
 #define N 1000
 

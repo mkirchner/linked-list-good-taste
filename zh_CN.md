@@ -41,9 +41,8 @@
         title="图1：带头指针的整数的单链表的数据结构"
         alt="图1：带头指针的整数的单链表的数据结构">
     </img>
-    <figcaption style="text-align: center;">
-        <b>图1：</b>带头指针的整数的单链表的数据结构
-    </figcaption>
+    <br>
+    <b>图1</b>：带头指针的整数的单链表的数据结构
 </p>
 
 
@@ -84,9 +83,8 @@ void remove_elegant(list *l, list_item *target);
         title="图2：CS101算法中链表数据结构的概念模型"
         alt="图2：CS101算法中链表数据结构的概念模型">
     </img>
-    <figcaption style="text-align: center;">
-        <b>图2：</b>CS101算法中链表数据结构的概念模型
-    </figcaption>
+    <br>
+    <b>图2</b>：CS101算法中链表数据结构的概念模型
 </p>
 
 ```C
@@ -146,9 +144,8 @@ void remove_elegant(list *l, list_item *target)
         title="图3：更优雅的方法中链表数据结构的概念模型。"
         alt="图3：更优雅的方法中链表数据结构的概念模型。">
     </img>
-    <figcaption style="text-align: center;">
-        <b>图3：</b>更优雅的方法中链表数据结构的概念模型。
-    </figcaption>
+    <br>
+    <b>图3</b>：更优雅的方法中链表数据结构的概念模型。
 </p>
 
 这里， `p` 是类型 `list_item **` ，并且保存指向当前链表项的指针的地址。当我们前进指针时，我们前进到指针的地址，指向下一个链表项。

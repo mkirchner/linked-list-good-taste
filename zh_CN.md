@@ -17,6 +17,8 @@
 
 ## 简介
 
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/lang/en/linus_torvalds_the_mind_behind_linux" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
+
 在 [2016 年的 TED 采访](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux)上（14:10 处），Linux 的创始人 Linus Trovalds 谈及了他认为编程时所谓的**好品位**。主持人展示了单链表中删除项的两种实现（文中将随后复现）。其中一种实现需要一个特别的条件语句来进行特判而另一个实现不需要。Linus, 亦如我们所料，偏好后一种。
 
 他评述道：

@@ -33,17 +33,19 @@
 
 整数单链表的基本数据结构如图1所示。
 
-<figure style="overflow-x:scroll; align:center;">
-    <img
-        src="img/linked-list.png"
-        width="600"
-        title="图1：带头指针的整数的单链表的数据结构"
-        alt="图1：带头指针的整数的单链表的数据结构">
-    </img>
-    <figcaption style="text-algin:center;">
-        <b>图1：</b>带头指针的整数的单链表的数据结构
-    </figcaption>
-</figure>
+<div style="overflow-x:scroll; align:center;">
+    <figure>
+        <img
+            src="img/linked-list.png"
+            width="600"
+            title="图1：带头指针的整数的单链表的数据结构"
+            alt="图1：带头指针的整数的单链表的数据结构">
+        </img>
+        <figcaption style="text-align: center;">
+            <b>图1：</b>带头指针的整数的单链表的数据结构
+        </figcaption>
+    </figure>
+</div>
 
 这里的数字是任意选择的整数值，箭头表示指针。 `head` 是一个类型为 `list_item *` 的指针，每个盒子都是一个 `list_item` 结构体的实体，每个盒子都有一个类型为 `list_item *` 的成员变量（在代码中称为 `next` ）指向下一个盒子。
 
@@ -75,17 +77,19 @@ void remove_elegant(list *l, list_item *target);
 
 ### CS101 版本
 
-<figure  align="center" style="overflow-x:scroll ; align:center;">
-    <img
-        width="600"
-        src="img/data-model-cs101.png"
-        title="图2：CS101算法中链表数据结构的概念模型"
-        alt="图2：CS101算法中链表数据结构的概念模型">
-    </img>
-    <figcaption>
-        <b>图2：</b>CS101算法中链表数据结构的概念模型
-    </figcaption>
-</figure>
+<div style="overflow-x:scroll; align:center;">
+    <figure>
+        <img
+            width="600"
+            src="img/data-model-cs101.png"
+            title="图2：CS101算法中链表数据结构的概念模型"
+            alt="图2：CS101算法中链表数据结构的概念模型">
+        </img>
+        <figcaption style="text-align: center;">
+            <b>图2：</b>CS101算法中链表数据结构的概念模型
+        </figcaption>
+    </figure>
+</div>
 
 ```C
 void remove_cs101(list *l, list_item *target)
@@ -137,17 +141,19 @@ void remove_elegant(list *l, list_item *target)
 
 优雅的实现使用间接寻址方案，产生数据结构的不同视图：
 
-<figure style="overflow-x:scroll; align:center;">
-    <img
-        width="600"
-        src="img/data-model-indirect.png"
-        title="图3：更优雅的方法中链表数据结构的概念模型。"
-        alt="图3：更优雅的方法中链表数据结构的概念模型。">
-    </img>
-    <figcaption style="text-align: center;">
-        <b>图3：</b>更优雅的方法中链表数据结构的概念模型。
-    </figcaption>
-</figure>
+<div style="overflow-x:scroll; align:center;">
+    <figure>
+        <img
+            width="600"
+            src="img/data-model-indirect.png"
+            title="图3：更优雅的方法中链表数据结构的概念模型。"
+            alt="图3：更优雅的方法中链表数据结构的概念模型。">
+        </img>
+        <figcaption style="text-align: center;">
+            <b>图3：</b>更优雅的方法中链表数据结构的概念模型。
+        </figcaption>
+    </figure>
+</div>
 
 这里， `p` 是类型 `list_item **` ，并且保存指向当前链表项的指针的地址。当我们前进指针时，我们前进到指针的地址，指向下一个链表项。
 

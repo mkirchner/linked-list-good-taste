@@ -1,5 +1,9 @@
 # Linked lists, pointer tricks and good taste
 
+Tanslantion: [简体中文(zh-CN)](./zh_CN.md)
+
+<hr>
+
 * [Introduction](#introduction)
 * [The code](#the-code)
    * [The CS101 version](#the-cs101-version)
@@ -145,7 +149,7 @@ The key insight is that using an indirect pointer `p` has two conceptual
 benefits:
 
 1. It allows us to interpret the linked list in a way that makes the `head`
-   pointer an integral part the data structure. This eliminates the need 
+   pointer an integral part the data structure. This eliminates the need
    for a special case to remove the first item.
 2. It also allows us to evaluate the condition of the `while` loop without
    having to let go of the pointer that points to `target`. This allows us to
@@ -223,7 +227,7 @@ First, let's add the following declaration to the list API in `list.h`:
 void insert_before(list *l, list_item *before, list_item *item);
 ```
 
-The function will take a pointer to a list `l`, a pointer `before` to an 
+The function will take a pointer to a list `l`, a pointer `before` to an
 item in that list and a pointer to a new list item `item` that the function
 will insert before `before`.
 

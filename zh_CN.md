@@ -33,14 +33,14 @@
 
 整数单链表的基本数据结构如图1所示。
 
-<figure style="overflow-x:scroll" align="center">
+<figure style="overflow-x:scroll; align:center;">
     <img
         src="img/linked-list.png"
         width="600"
         title="图1：带头指针的整数的单链表的数据结构"
-        alt="图1：带头指针的整数的单链表的数据结构" >
+        alt="图1：带头指针的整数的单链表的数据结构">
     </img>
-    <figcaption>
+    <figcaption style="text-algin:center;">
         <b>图1：</b>带头指针的整数的单链表的数据结构
     </figcaption>
 </figure>
@@ -75,7 +75,7 @@ void remove_elegant(list *l, list_item *target);
 
 ### CS101 版本
 
-<figure  align="center" style="overflow-x:scroll">
+<figure  align="center" style="overflow-x:scroll ; align:center;">
     <img
         width="600"
         src="img/data-model-cs101.png"
@@ -137,14 +137,14 @@ void remove_elegant(list *l, list_item *target)
 
 优雅的实现使用间接寻址方案，产生数据结构的不同视图：
 
-<figure align="center" style="overflow-x:scroll">
+<figure style="overflow-x:scroll; align:center;">
     <img
         width="600"
         src="img/data-model-indirect.png"
         title="图3：更优雅的方法中链表数据结构的概念模型。"
         alt="图3：更优雅的方法中链表数据结构的概念模型。">
     </img>
-    <figcaption>
+    <figcaption style="text-align: center;">
         <b>图3：</b>更优雅的方法中链表数据结构的概念模型。
     </figcaption>
 </figure>
